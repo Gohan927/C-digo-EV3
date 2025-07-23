@@ -54,7 +54,7 @@ try:
                 cor_esq2 = sensor_esq.color
 
                 # Se os dois continuam vendo verde → gira 180°
-                if (cor_dir2 == 3 or cor_dir2 == 2) and (cor_esq2 == 2 or cor_dir2 == 3):
+                if (cor_dir_anterior == 6) and (cor_esq_anterior == 6):
                     #som.beep()
                     motor_esq.on_for_degrees(SpeedPercent(30), 420)
                     motor_dir.on_for_degrees(SpeedPercent(-30), 420)
@@ -65,11 +65,12 @@ try:
                     continue
 
                 # Se só a direita continua verde
-                elif (cor_dir2 == 3 or cor_dir2 == 2) and cor_esq2 != 3:
+                elif (cor_dir2 == 3 or cor_dir2 == 2) and cor_esq2 != 3 or 2:
                     if cor_dir_anterior == 6:  # branco
                         #som.beep()
                         motor_esq.on_for_degrees(SpeedPercent(20), 180)
                         motor_dir.on_for_degrees(SpeedPercent(-20), 180)
+
                         motor_esq.on(SpeedPercent(velocidade_base))
                         motor_dir.on(SpeedPercent(velocidade_base))
                         sleep(2)
@@ -78,11 +79,12 @@ try:
                         pass  # segue normalmente
 
                 # Se só a esquerda continua verde
-                elif (cor_esq2 == 3 or cor_esq2 == 2) and cor_dir2 != 3:
+                elif (cor_esq2 == 3 or cor_esq2 == 2) and cor_dir2 != 3 or 2:
                     if cor_esq_anterior == 6:  # branco
                         #som.beep()
                         motor_dir.on_for_degrees(SpeedPercent(20), 180)
                         motor_esq.on_for_degrees(SpeedPercent(-20), 180)
+
                         motor_esq.on(SpeedPercent(velocidade_base))
                         motor_dir.on(SpeedPercent(velocidade_base))
                         sleep(2)
@@ -127,4 +129,3 @@ try:
 except KeyboardInterrupt:
     motor_esq.off()
     motor_dir.off()
-
